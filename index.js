@@ -37,7 +37,7 @@ client.connect(err => {
     collection.insertOne(product)
     .then(result => {
         console.log('Data added successfully');
-        res.send('success');
+        res.redirect('/');
     })
   })//post
 
@@ -59,6 +59,7 @@ client.connect(err => {
       }
     })
     .then(result => {
+      res.send(result.modifiedCount > 0);
       console.log(result)
     })
   })
@@ -67,7 +68,7 @@ client.connect(err => {
   app.delete('/delete/:id', (req, res) => {
       collection.deleteOne({_id: ObjectId(req.params.id)})
       .then((result)=>{
-          console.log(result)
+          res.send(result.deletedCount > 0);
       })
   })
 
